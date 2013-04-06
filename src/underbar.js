@@ -4,7 +4,12 @@ var _ = {};
 
   // Return an array of the last n elements of an array. If n is undefined,
   // return just the last element.
-  _.last = function(array, n) {
+  _.last = function(array, n){
+    var output = [];
+    for (var i=array.length-n; i < array.length; i++) {
+      output.push(array[i]);
+    }
+    return output;
   };
 
   // Like last, but for the first elements
@@ -16,7 +21,15 @@ var _ = {};
 
   // Call iterator(value, key, collection) for each element of collection
   _.each = function(obj, iterator) {
+    for (var i=0; i < obj.length; i++) {
+      iterator(obj[i],i,obj);
+    }
   };
+// _.each(obj, function(value, key, collection)) {
+//     for (var i=0; i < obj.length; i++) {
+
+//     }
+//   };
 
   /*
    * TIP: Here's an example of a function that needs to iterate, which we've
@@ -38,18 +51,34 @@ var _ = {};
     return result;
   };
 
-  // Return all elements of an array that pass a truth test.
+  // Return all elements of an array that pass a truth test.**
+    
   _.filter = function(collection, iterator) {
+
+     for(var x = 0; x <= collection.length; x++){
+      return collection[x] === true;
+    };
   };
 
-  // Return all elements of an array that don't pass a truth test.
+  // Return all elements of an array that don't pass a truth test.**
   _.reject = function(collection, iterator) {
+    for(var x = 0; x <= collection.length; x++){
+      return collection[x] != true;
+    };
+
     // TIP: see if you can re-use _.select() here, without simply
     // copying code in and modifying it
   };
 
   // Produce a duplicate-free version of the array.
   _.uniq = function(array) {
+    var duplicateFree = [];
+    for (var i=0;i < array.length; i++) {
+      if (!(array[i] in duplicateFree)) {
+        duplicateFree.push(array[i]);
+      }
+    }
+    return duplicateFree;
   };
 
 
@@ -60,7 +89,16 @@ var _ = {};
    */
 
   // Return the results of applying an iterator to each element.
+    
   _.map = function(array, iterator) {
+    
+
+    // untested first draft~
+    //   for ( var x = 0; x < array.length; x = 0 + iterator){
+    //     var newArray[] = array[x] 
+    //     return newArray[];
+    //   }
+
   };
 
   /*
@@ -72,6 +110,8 @@ var _ = {};
   // Takes an array of objects and returns and array of the values of
   // a certain property in it. E.g. take an array of people and return
   // an array of just their ages
+
+      
   _.pluck = function(obj, propertyName) {
     return _.map(obj, function(value){
       return value[propertyName];
@@ -79,7 +119,14 @@ var _ = {};
   };
 
   // Calls the method named by methodName on each value in the list.
+   
   _.invoke = function(list, methodName) {
+    
+    // //untested first draft~
+    // for(list[x]){
+    //   methodName (list[])
+    // }
+
   };
 
   // Reduces an array or object to a single value by repetitively calling
@@ -96,6 +143,10 @@ var _ = {};
   //   }, 0); // should be 6
   //
   _.reduce = function(obj, iterator, initialValue) {
+
+
+
+
   };
 
   // Determine if the array or object contains a given value (using `===`).
@@ -114,12 +165,22 @@ var _ = {};
   // Determine whether all of the elements match a truth test.
   _.every = function(obj, iterator) {
     // TIP: use reduce on this one!
+
+
+
+
+
   };
 
   // Determine whether any of the elements pass a truth test. If no iterator is
   // provided, provide a default one
   _.any = function(obj, iterator) {
     // TIP: re-use every() here
+
+
+
+
+
   };
 
 
@@ -182,6 +243,18 @@ var _ = {};
   // already computed the result for the given argument and return that value
   // instead if possible.
   _.memoize = function(func) {
+    var cache = {};
+
+    return function( arg ){  
+      if(arg in cache) {  
+        console.log('Cache hit for '+arg);  
+        return cache[arg];  
+      } 
+      else {  
+        console.log('Cache miss for '+arg);  
+        return cache[arg] = func( arg );  
+      }  
+    };  
   };
 
   // Delays a function for the given number of milliseconds, and then calls
@@ -200,6 +273,7 @@ var _ = {};
 
   // Shuffle an array.
   _.shuffle = function(obj) {
+
   };
 
   /* (End of pre-course curriculum) */
