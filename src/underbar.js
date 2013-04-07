@@ -168,13 +168,13 @@ var _ = {};
     
   _.invoke = function(list, methodName) {
    _.map(list, function(element) {
-    methodName(element);
-   return _.map(list, function(element) {
-   return element[methodName].apply(element);
-     })
-   };
-
+    // methodName(element);
+     return _.map(list, function(element) {
+     return element[methodName].apply(element);
+     });
+   });
   };
+  
 
   // Reduces an array or object to a single value by repetitively calling
   // iterator(previousValue, item) for each item. previousValue should be
