@@ -5,18 +5,46 @@ var _ = {};
   // Return an array of the last n elements of an array. If n is undefined,
   // return just the last element.
   _.last = function(array, n){
+    if(n === undefined || n === 1){
+      return array[array.length -1];
+    }
+    else if (Array.isArray(array)){
+      return array.splice(-n,n);
+    }
+    else
+    {
     var output = [];
     for (var i=array.length-n; i < array.length; i++) {
       output.push(array[i]);
     }
     return output;
   };
+};
+
 
   // Like last, but for the first elements
   _.first = function(array, n) {
-    // TIP: you can often re-use similar functions in clever ways, like so:
-    return _.last(array.reverse(), n);
+  
+  if(n === undefined || n === 1){
+      return array[0];
+    }
+    else if (Array.isArray(array)){
+      return array.splice(0,n);
+    }
+    else
+    {
+    var output = [];
+    
+    for (var i=0; i < n; i++) {
+      output.push(array[i]);
+    }
+    return output;
   };
+};
+
+
+    // TIP: you can often re-use similar functions in clever ways, like so:
+      //return _.last(array.reverse(), n);};
 
 
   // Call iterator(value, key, collection) for each element of collection
@@ -25,11 +53,7 @@ var _ = {};
       iterator(obj[i],i,obj);
     }
   };
-// _.each(obj, function(value, key, collection)) {
-//     for (var i=0; i < obj.length; i++) {
 
-//     }
-//   };
 
   /*
    * TIP: Here's an example of a function that needs to iterate, which we've
@@ -51,21 +75,45 @@ var _ = {};
     return result;
   };
 
+
+
+
   // Return all elements of an array that pass a truth test.**
     
   _.filter = function(collection, iterator) {
-
-     for(var x = 0; x <= collection.length; x++){
-      return collection[x] === true;
-    };
+    var collect = [];
+    _.each(collection, function(index) {
+      if (iterator(index)) {
+        collect.push(index);
+      }
+      
+    });
+    return collect;
   };
+
+
+
+    // _.each(collection, function(element,index){
+    //   if (iterator(element)) {
+    //   rtnArray.push(item);    
+    // });
+
+    // return rtnArray;
+
+
+
 
   // Return all elements of an array that don't pass a truth test.**
   _.reject = function(collection, iterator) {
-    for(var x = 0; x <= collection.length; x++){
-      return collection[x] != true;
-    };
-
+    var collect = [];
+    _.each(collection, function(index) {
+      if (!iterator(index)) {
+        collect.push(index);
+      }
+      
+    });
+    return collect;
+  
     // TIP: see if you can re-use _.select() here, without simply
     // copying code in and modifying it
   };
@@ -91,14 +139,11 @@ var _ = {};
   // Return the results of applying an iterator to each element.
     
   _.map = function(array, iterator) {
-    
-
-    // untested first draft~
-    //   for ( var x = 0; x < array.length; x = 0 + iterator){
-    //     var newArray[] = array[x] 
-    //     return newArray[];
-    //   }
-
+    var mapped = [];
+    _.each(array, function(element) {
+      mapped.push(iterator(element));
+      });
+      return mapped;
   };
 
   /*
@@ -120,12 +165,14 @@ var _ = {};
 
   // Calls the method named by methodName on each value in the list.
    
-  _.invoke = function(list, methodName) {
     
-    // //untested first draft~
-    // for(list[x]){
-    //   methodName (list[])
-    // }
+  _.invoke = function(list, methodName) {
+   _.map(list, function(element) {
+    methodName(element);
+   return _.map(list, function(element) {
+   return element[methodName].apply(element);
+     })
+   };
 
   };
 
