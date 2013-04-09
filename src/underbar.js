@@ -48,12 +48,27 @@ var _ = {};
 
 
   // Call iterator(value, key, collection) for each element of collection
-  _.each = function(obj, iterator) {
+ /* _.each = function(obj, iterator) {
     for (var i=0; i < obj.length; i++) {
       iterator(obj[i],i,obj);
     }
   };
+  */
+   _.each = function(obj, iterator) {
+    if(!obj) return;
+    if(obj.length){
+      for (var i = 0; i < obj.length; i++) {
+        iterator(obj[i],i, obj)
+      }
+    } else {
+      for(var key in obj){
+        if (obj.hasOwnProperty(key)) {
+          iterator(obj[key], key, obj);
+        }
+      }
+    }
 
+  };
 
   /*
    * TIP: Here's an example of a function that needs to iterate, which we've
@@ -128,7 +143,8 @@ var _ = {};
     }
     return duplicateFree;
   };
-
+  //use sort and compare eache looped index to the next. 
+  //then create a push and indexOf to the next array.
 
   /*
    * map() is a useful primitive iteration function that works a lot
@@ -167,33 +183,44 @@ var _ = {};
    
     
   _.invoke = function(list, methodName) {
-   _.map(list, function(element) {
     // methodName(element);
      return _.map(list, function(element) {
-     return element[methodName].apply(element);
-     });
+      return element[methodName] ? element[methodName].apply(element) : methodName.apply(element) ;
+
    });
   };
-  
+//   if (element[methodname] ){
+//     element[methodname].apply(element);
+//   }
+//   else
+//   {
+//     methodName.apply(element);
+//   }
 
+// true ? true(stuff) : false(stuff)
   // Reduces an array or object to a single value by repetitively calling
   // iterator(previousValue, item) for each item. previousValue should be
   // the return value of the previous iterator call.
-  //
+
+      //(fibinacci - create container of the array location previous. )
+  
   // You can pass in an initialValue that is passed to the first iterator
   // call. Defaults to 0.
-  //
+     // this can be a var set to 0. 
   // Example:
   //   var numbers = [1,2,3];
   //   var sum = _.reduce(numbers, function(total, number){
   //     return total + number;
   //   }, 0); // should be 6
-  //
-  _.reduce = function(obj, iterator, initialValue) {
-
-
-
-
+    
+    //look here > look here > look here > doo all this<<<
+  _.reduce = function reduceStuff(objects, iteratorFunction, initialValue) {
+    var sum = initialValue || 0;
+    //_.each(obj/*aka objects(plural)*/, function/*aka annonymous function*/(obj/*aka singular*/){
+    _.each(objects, function myIterator(obj){
+      sum = iteratorFunction(sum/*self created singular*/, obj/*self created function parameter*/)
+    });
+    return sum;
   };
 
   // Determine if the array or object contains a given value (using `===`).
@@ -211,23 +238,72 @@ var _ = {};
 
   // Determine whether all of the elements match a truth test.
   _.every = function(obj, iterator) {
+    // console.log("------------");
+    return _.reduce(obj, function(findTrue, item){
+      // console.log(item);
+      // console.log("-- function: " + iterator)
+      // console.log("-- ItemFunction: " + iterator(item));
+      // console.log("-- SumFunction: " + iterator(sum));
+      // console.log("-- sum: " + sum);
+      // console.log("-- item: " + item);
+      if(!findTrue(item)){
+        return false;
+      }
+      return !!iterator(item);
+    }, true);
+
+
+
+
+            //   studd = function(obj) {
+            //   var collect = [];
+            //   _.each(stuff, function(index) {
+            //     if(iterator(index)){
+            //       collect.push(true);
+            //     }
+            //     collect.push(false);
+            //   });
+            //   console.log(collect);
+            //   return collect;
+
+            // }
+
+            // // console.log(studd);
+            // if (_.contains(studd, false)) {
+            //   return false;
+            // }
+            // return true;
+
+
+        
+
+  // var studd = _.filter(obj, iterator)
+  // console.log(studd);
+  // if (_.contains(studd, false)) {
+  //   return false;
+  // }
+  // return true;
+
     // TIP: use reduce on this one!
 
-
-
-
-
+    // for (var i = 0; i < obj.length; i++){
+    //   if(!iterator(obj[i])){
+    //     return false;
+    //   }
+    // }
+    // return true; 
   };
 
   // Determine whether any of the elements pass a truth test. If no iterator is
   // provided, provide a default one
   _.any = function(obj, iterator) {
     // TIP: re-use every() here
+    for (var i = 0; i<obj.length; i ++){
 
 
 
 
-
+    };
   };
 
 
@@ -357,7 +433,8 @@ var _ = {};
   // Only the elements present in just the first array will remain.
   _.difference = function(array) {
   };
-
+//pop, these items. or slice with .length, on the second array. 
+//(which segment will remain, the second seg of the first array)
 
   /*
    * Offroad
