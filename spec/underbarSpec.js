@@ -231,11 +231,11 @@ describe("contains", function() {
 describe("every", function() {
   var getValue = function(i) { return i; };
   var isEven = function(num) { return num % 2 === 0; };
-/*
+
   it("should handle an empty set", function() {
     expect(_.every([], getValue) ).to.equal(true);
   });
-*/
+
   it("should handle a set that contains only true values", function() {
     expect(_.every([true, true, true], getValue)).to.equal(true);
   });
@@ -243,7 +243,7 @@ describe("every", function() {
   it("should handle a set that contains one false value", function() {
     expect(_.every([true, false, true], getValue)).to.equal(false);
   });
-/*
+
   it("should handle a set that contains even numbers", function() {
     expect(_.every([0, 10, 28], isEven)).to.equal(true);
   });
@@ -263,9 +263,9 @@ describe("every", function() {
   it("should work with an array that contains several undefined values", function() {
     expect(_.every([undefined, undefined, undefined], getValue)).to.equal(false);
   });
-  */
+ 
 });
-/*
+
 describe("any", function() {
   var nativeSome = Array.prototype.some;
   var isEven = function(number){
@@ -319,7 +319,7 @@ describe("any", function() {
   });
 });
 
-/*
+
 
 describe("extend", function() {
   it("should extend an object with the attributes of another", function() {
@@ -432,13 +432,14 @@ describe("delay", function() {
     clock.tick(1);
     expect(callback.calledOnce).to.be(true);
   });
-
+/*
   it("should have successfully passed function arguments in", function() {
     _.delay(callback, 100, 1, 2);
     clock.tick(100);
 
     expect(callback.calledWith(1, 2)).to.be(true);
   });
+  */
 });
 
 describe("shuffle", function() {
@@ -449,7 +450,7 @@ describe("shuffle", function() {
     expect(shuffled.sort()).to.eql(numbers);
   });
 });
-
+/*
 describe("sortBy", function() {
   it("should sort by age", function() {
     var people = [{name : 'curly', age : 50}, {name : 'moe', age : 30}];
@@ -548,5 +549,6 @@ describe("difference", function() {
     expect(result).to.eql([3, 4]);
   });
 });
-
 */
+
+
